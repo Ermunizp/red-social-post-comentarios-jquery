@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Social App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Red Social</h1>
+        <div id="newPost">
+            <input type="text" id="postTitle" placeholder="Título de Post">
+            <textarea id="postDescription" placeholder="Descripción de Post"></textarea>
+            <button id="createPostButton">Crear Post</button>
+        </div>
+        <div id="filterSection">
+            <input type="text" id="filterInput" placeholder="Filtro por título">
+            <button id="Filtro">Flitrar</button>
+        </div>
+        <div id="postsContainer"></div>
+        <div id="commentsSection" style="display:none;">
+            <h2>Comments for Selected Post</h2>
+            <div id="commentsContainer"></div>
+            <input type="text" id="commentText" placeholder="New Comment">
+            <button id="addCommentButton">Add Comment</button>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="posts.js"></script>
+    <script src="comments.js"></script>
+    <script src="main.js"></script>
+    <script>
+        $(document).ready(() => {
+            $('#createPostButton').click(() => {
+                const title = $('#postTitle').val();
+                const description = $('#postDescription').val();
+                if (title && description) {
+                    createPost(title, description, new Date().toLocaleDateString());
+                    $('#postTitle').val('');
+                    $('#postDescription').val('');
+                }
+            });
+
+            $('#postsContainer').on('click', '.viewCommentsButton', function() {
+                const postIndex = $(this).data('index');
+                displayComments(postIndex);
+            });
+
+            $('#addCommentButton').click(() => {
+                const commentText = $('#commentText').val();
+                if (commentText) {
+                    const postIndex = $('#commentsSection').data('postIndex');
+                    addComment(postIndex, commentText);
+                    $('#commentText').val('');
+                }
+            });
+
+            function displayComments(postIndex) {
+                $('#commentsSection').show().data('postIndex', postIndex);
+                const comments = posts[postIndex].comments;
+                $('#commentsContainer').empty();
+                comments.forEach((comment, index) => {
+                    $('#commentsContainer').append(`
+                        <div class="comment">
+                            <p>${comment}</p>
+                            <button class="editCommentButton" data-post-index="${postIndex}" data-comment-index="${index}">Edit</button>
+                            <button class="deleteCommentButton" data-post-index="${postIndex}" data-comment-index="${index}">Delete</button>
+                        </div>
+                    `);
+                });
+            }
+
+            $('#commentsContainer').on('click', '.editCommentButton', function() {
+                const postIndex = $(this).data('post-index');
+                const commentIndex = $(this).data('comment-index');
+                const newComment = prompt('Edit your comment:', posts[postIndex].comments[commentIndex]);
+                if (newComment) {
+                    editComment(postIndex, commentIndex, newComment);
+                }
+            });
+
+            $('#commentsContainer').on('click', '.deleteCommentButton', function() {
+                const postIndex = $(this).data('post-index');
+                const commentIndex = $(this).data('comment-index');
+                deleteComment(postIndex, commentIndex);
+            });
+        });
+    </script>
+</body>
+</html>
