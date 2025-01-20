@@ -1,4 +1,4 @@
-# Social Network App
+# Red Social App
 
 ## Propósito
 Esta aplicación web interactiva permite gestionar publicaciones y comentarios en una red social ficticia. Los usuarios pueden crear nuevos posts, agregar, editar y eliminar comentarios, y filtrar publicaciones por palabras clave en el título.
