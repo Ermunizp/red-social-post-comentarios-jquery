@@ -1,36 +1,36 @@
 // main.js
 
-// Arrow function to create a new post
+// Función Arrow para crear un nuevo post
 const createPost = (title, description, date) => {
     posts.push({ title, description, date, comments: [] });
     displayPosts();
 };
 
-// Arrow function to add a comment to a post
+// Función Arrow para añadir un comentario a un post
 const addComment = (postIndex, comment) => {
     posts[postIndex].comments.push(comment);
     displayPosts();
 };
 
-// Arrow function to edit a comment
+// Función Arrow para editar un comentario
 const editComment = (postIndex, commentIndex, newComment) => {
     posts[postIndex].comments[commentIndex] = newComment;
     displayPosts();
 };
 
-// Arrow function to delete a comment
+// Función Arrow para eliminar un comentario
 const deleteComment = (postIndex, commentIndex) => {
     posts[postIndex].comments.splice(commentIndex, 1);
     displayPosts();
 };
 
-// Function to filter posts by keyword in title
+// Función para filtrar un post por palabra clave del título
 const filterPosts = keyword => {
     const filteredPosts = posts.filter(post => post.title.includes(keyword));
     displayFilteredPosts(filteredPosts);
 };
 
-// Function to display posts dynamically
+// Función para mostrar posts dinamicamente
 const displayPosts = () => {
     $('#postsContainer').empty();
     posts.forEach((post, index) => {
@@ -50,7 +50,7 @@ const displayPosts = () => {
     });
 };
 
-// Function to display filtered posts
+// Función para mostrar posts filtrados
 const displayFilteredPosts = filteredPosts => {
     $('#postsContainer').empty();
     filteredPosts.forEach(post => {
@@ -69,10 +69,10 @@ const displayFilteredPosts = filteredPosts => {
 };
 
 $(document).ready(() => {
-    // Initial posts display
+    // Mostrar Posts
     displayPosts();
 
-    // Event listener for filtering posts
+    // Evento para filtrar Posts
     $('#filterButton').click(() => {
         const keyword = $('#filterInput').val();
         filterPosts(keyword);
