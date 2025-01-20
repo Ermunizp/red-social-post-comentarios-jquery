@@ -1,21 +1,21 @@
 // posts.js
 
-// Array to store posts
+// Array para almacenar posts
 let posts = [];
 
-// Function to initialize posts data (if needed)
+// Función para incializar datos de posts 
 const initializePosts = () => {
-    // Example post to start with
+    // Post de Ejemplo
     posts.push({
-        title: "Welcome Post",
-        description: "This is the welcome post for our social network app.",
+        title: "Post de Bienvenida",
+        description: "Este es un post de Bienvenida de la aplicación de Red Social.",
         date: new Date().toLocaleDateString(),
         comments: []
     });
     displayPosts();
 };
 
-// Call initializePosts on page load
+// Llamada a la Incialización de Posts
 $(document).ready(() => {
     initializePosts();
 });
